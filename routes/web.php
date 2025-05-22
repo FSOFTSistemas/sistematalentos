@@ -59,6 +59,14 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+// Rotas para master
+Route::middleware(['auth', 'master'])->group(function () {
+    Route::resource('planos', PlanoController::class);
+    Route::resource('empresas', EmpresaController::class);
+    Route::post('empresas/{empresa}/usuarios', [EmpresaController::class, 'addUser'])->name('empresas.add-user');
+    Route::post('empresas/{empresa}/renovar', [EmpresaController::class, 'renovarPlano'])->name('empresas.renovar-plano');
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

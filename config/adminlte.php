@@ -330,6 +330,18 @@ return [
         'icon_color' => 'blue',
         'url' => '/despesas',
     ],
+    [
+        'text' => 'Planos',
+        'icon' => 'fas fa-users', // ícone de grupo de pessoas
+        'icon_color' => 'cyan',
+        'url' => '/planos',
+    ],
+    [
+        'text' => 'Empresas',
+        'icon' => 'fas fa-hand-holding-usd', // ícone de doação/contribuição
+        'icon_color' => 'green',
+        'url' => '/empresas',
+    ],
 ],
 
 
