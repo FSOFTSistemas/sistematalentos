@@ -13,6 +13,7 @@ class PlanoController extends Controller
      */
     public function __construct()
     {
+
         $this->middleware(['auth', 'role:master']);
     }
     
@@ -21,6 +22,7 @@ class PlanoController extends Controller
      */
     public function index()
     {
+        
         $planos = Plano::orderBy('valor')->get();
         return view('planos.index', compact('planos'));
     }

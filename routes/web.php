@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\PlanoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CaixaController;
 use App\Http\Controllers\MembroController;
