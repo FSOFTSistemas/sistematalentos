@@ -1,67 +1,129 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 📘 Sistema de Gestão de Empresas com Planos
 
-## About Laravel
+Este projeto é um sistema Laravel com foco na gestão de empresas e planos, permitindo controle de usuários com permissões, visualização, criação, edição e exclusão de empresas, planos e usuários administradores. Utiliza o AdminLTE para layout e a biblioteca **Spatie Permission** para controle de permissões e papéis.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✅ Funcionalidades
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Cadastro de empresas com informações administrativas.
+- Seleção e vinculação de planos com valores e periodicidade.
+- Criação automática de usuário administrador para a empresa.
+- Painel com menu restrito baseado em permissões (`master`).
+- Visualização e edição de empresas.
+- Permissões com Spatie.
+- Exclusão em cascata de usuários ao apagar uma empresa.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Instalação
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+# Clonar o repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Acessar o diretório
+cd seu-repositorio
 
-## Laravel Sponsors
+# Instalar dependências
+composer install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Configurar .env e gerar key
+cp .env.example .env
+php artisan key:generate
 
-### Premium Partners
+# Migrar o banco de dados
+php artisan migrate
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+# Rodar os seeders (cria planos e usuário master)
+php artisan db:seed
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🧩 Seeders Importantes
 
-## Code of Conduct
+```bash
+php artisan db:seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Cria:
 
-## Security Vulnerabilities
+- Planos pré-definidos:
+  - Básico
+  - Intermediário
+  - Avançado
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Usuário Master:
+  - Email: `master@ecclesia.com`
+  - Senha: `password`
+  - Permissão: `master`
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# sistematalentos
+## 🛠️ Comandos Úteis
+
+```bash
+# Rodar todas as migrations
+php artisan migrate
+
+# Reverter migrations
+php artisan migrate:rollback
+
+# Rodar seeders individualmente
+php artisan db:seed --class=PlanoSeeder
+php artisan db:seed --class=UserSeeder
+
+# Criar novo seeder
+php artisan make:seeder NomeDoSeeder
+
+# Criar nova migration
+php artisan make:migration create_tabela
+
+# Criar novo model com migration e controller
+php artisan make:model Empresa -mc
+```
+
+---
+
+## 🔐 Permissões com Spatie
+
+- Roles usados:
+  - `master` → Acesso total, vê todos os menus e funcionalidades restritas.
+
+- Menu com `can`:
+  ```php
+  [
+    'text' => 'Planos',
+    'url' => '/planos',
+    'can' => 'master'
+  ]
+  ```
+
+- Verificação com Gate:
+  ```blade
+  @can('master')
+    // conteúdo restrito
+  @endcan
+  ```
+
+---
+
+## ⚠️ Observações
+
+- A exclusão de uma empresa remove automaticamente os usuários associados (via relacionamento com `onDelete('cascade')`).
+- Os modais foram substituídos por páginas completas (`create`, `edit`, `show`).
+
+---
+
+## 📂 Estrutura Recomendada
+
+- `app/Models/Empresa.php` – model de empresas.
+- `app/Http/Controllers/EmpresaController.php` – CRUD completo.
+- `database/seeders/PlanoSeeder.php` – planos base.
+- `resources/views/empresas/` – telas `index`, `create`, `edit`, `show`.
+
+---
+
+Se quiser, posso gerar esse arquivo como um `.md` pra você baixar. Deseja isso?

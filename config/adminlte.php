@@ -300,49 +300,52 @@ return [
 
     'menu' => [
 
-    [
-        'text' => 'Início',
-        'icon' => 'fas fa-home', // ícone de casa
-        'icon_color' => 'red',
-        'url' => '/home',
+        [
+            'text' => 'Início',
+            'icon' => 'fas fa-home', // ícone de casa
+            'icon_color' => 'red',
+            'url' => '/home',
+        ],
+        [
+            'text' => 'Caixa',
+            'icon' => 'fas fa-cash-register', // ícone de caixa registradora
+            'icon_color' => 'yellow',
+            'url' => '/caixa',
+        ],
+        [
+            'text' => 'Membros',
+            'icon' => 'fas fa-users', // ícone de grupo de pessoas
+            'icon_color' => 'cyan',
+            'url' => '/membros',
+        ],
+        [
+            'text' => 'Dízimos',
+            'icon' => 'fas fa-hand-holding-usd', // ícone de doação/contribuição
+            'icon_color' => 'green',
+            'url' => '/dizimos',
+        ],
+        [
+            'text' => 'Despesas',
+            'icon' => 'fas fa-file-invoice-dollar', // ícone de fatura
+            'icon_color' => 'blue',
+            'url' => '/despesas',
+        ],
+        [
+            'text' => 'Planos',
+            'icon' => 'fas fa-users',           // ícone (FontAwesome)
+            'icon_color' => 'cyan',             // cor do ícone
+            'url'  => 'planos',                 // ou route('planos.index') se preferir
+            'can'  => 'master'                  // checa a permissão com Gate ou Spatie
+        ],
+        [
+            'text' => 'Empresas',
+            'icon' => 'fas fa-hand-holding-usd',
+            'icon_color' => 'green',
+            'url'  => 'empresas',
+            'can'  => 'master'
+        ],
+
     ],
-    [
-        'text' => 'Caixa',
-        'icon' => 'fas fa-cash-register', // ícone de caixa registradora
-        'icon_color' => 'yellow',
-        'url' => '/caixa',
-    ],
-    [
-        'text' => 'Membros',
-        'icon' => 'fas fa-users', // ícone de grupo de pessoas
-        'icon_color' => 'cyan',
-        'url' => '/membros',
-    ],
-    [
-        'text' => 'Dízimos',
-        'icon' => 'fas fa-hand-holding-usd', // ícone de doação/contribuição
-        'icon_color' => 'green',
-        'url' => '/dizimos',
-    ],
-    [
-        'text' => 'Despesas',
-        'icon' => 'fas fa-file-invoice-dollar', // ícone de fatura
-        'icon_color' => 'blue',
-        'url' => '/despesas',
-    ],
-    [
-        'text' => 'Planos',
-        'icon' => 'fas fa-users', // ícone de grupo de pessoas
-        'icon_color' => 'cyan',
-        'url' => '/planos',
-    ],
-    [
-        'text' => 'Empresas',
-        'icon' => 'fas fa-hand-holding-usd', // ícone de doação/contribuição
-        'icon_color' => 'green',
-        'url' => '/empresas',
-    ],
-],
 
 
     /*
