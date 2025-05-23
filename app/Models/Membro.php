@@ -29,7 +29,8 @@ class Membro extends Model
         'status',
         'data_batismo',
         'data_admissao',
-        'observacoes'
+        'observacoes',
+        'empresa_id',
     ];
     
     /**

@@ -23,7 +23,8 @@ class Dizimo extends Model
         'ano_referencia',
         'caixa_id',
         'user_id',
-        'observacao'
+        'observacao',
+        'empresa_id',
     ];
     
     /**

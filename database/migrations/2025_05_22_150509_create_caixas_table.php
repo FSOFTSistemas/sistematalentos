@@ -20,7 +20,10 @@ return new class extends Migration
             $table->string('categoria')->nullable();
             $table->text('observacao')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 

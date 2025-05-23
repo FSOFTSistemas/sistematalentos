@@ -22,7 +22,8 @@ class Caixa extends Model
         'data',
         'categoria',
         'observacao',
-        'user_id'
+        'user_id',
+        'empresa_id',
     ];
     
     /**

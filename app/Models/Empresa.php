@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Empresa extends Model
 {
     use HasFactory;
-    
+
     /**
      * Os atributos que são atribuíveis em massa.
      *
@@ -28,7 +28,7 @@ class Empresa extends Model
         'responsavel',
         'observacoes',
     ];
-    
+
     /**
      * Os atributos que devem ser convertidos.
      *
@@ -39,7 +39,7 @@ class Empresa extends Model
         'data_fim_plano' => 'date',
         'ativo' => 'boolean',
     ];
-    
+
     /**
      * Obtém o plano associado à empresa.
      */
@@ -47,7 +47,7 @@ class Empresa extends Model
     {
         return $this->belongsTo(Plano::class);
     }
-    
+
     /**
      * Obtém os membros associados à empresa.
      */
@@ -55,7 +55,12 @@ class Empresa extends Model
     {
         return $this->hasMany(Membro::class);
     }
-    
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     /**
      * Verifica se a empresa atingiu o limite de membros do plano.
      */
@@ -63,10 +68,10 @@ class Empresa extends Model
     {
         $totalMembros = $this->membros()->count();
         $limitePlano = $this->plano->limite_membros;
-        
+
         return $totalMembros >= $limitePlano;
     }
-    
+
     /**
      * Retorna o número de membros restantes que podem ser cadastrados.
      */
@@ -74,10 +79,10 @@ class Empresa extends Model
     {
         $totalMembros = $this->membros()->count();
         $limitePlano = $this->plano->limite_membros;
-        
+
         return max(0, $limitePlano - $totalMembros);
     }
-    
+
     /**
      * Verifica se a empresa está com o plano ativo.
      */
@@ -86,11 +91,11 @@ class Empresa extends Model
         if (!$this->ativo || !$this->plano->ativo) {
             return false;
         }
-        
+
         if ($this->data_fim_plano && $this->data_fim_plano->isPast()) {
             return false;
         }
-        
+
         return true;
     }
 }

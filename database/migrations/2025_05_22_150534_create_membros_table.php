@@ -27,6 +27,8 @@ return new class extends Migration
             $table->date('data_batismo')->nullable();
             $table->date('data_admissao')->nullable();
             $table->text('observacoes')->nullable();
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }
