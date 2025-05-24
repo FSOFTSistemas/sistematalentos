@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Membro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $mesAtual = Carbon::now()->month;
+        $totalMembros = Membro::count();
+        $aniversariantes = Membro::whereMonth('data_nascimento', $mesAtual)->where('empresa_id', Auth::user()->empresa_id)->orderByRaw('DAY(data_nascimento) ASC')->get();
+        return view('home', compact('totalMembros', 'aniversariantes'));
     }
+
+    
 }
