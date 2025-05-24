@@ -13,9 +13,10 @@ class CaixaController extends Controller
      */
     public function index()
     {
-        $movimentacoes = Caixa::orderBy('data', 'desc')->get();
-        $totalEntradas = Caixa::where('tipo', 'entrada')->sum('valor');
-        $totalSaidas = Caixa::where('tipo', 'saida')->sum('valor');
+        $empresa_id = Auth::user()->empresa_id;
+        $movimentacoes = Caixa::where('empresa_id', $empresa_id)->orderBy('data', 'desc')->get();
+        $totalEntradas = Caixa::where('tipo', 'entrada')->where('empresa_id', $empresa_id)->sum('valor');
+        $totalSaidas = Caixa::where('tipo', 'saida')->where('empresa_id', $empresa_id)->sum('valor');
         
         return view('caixa.index', compact('movimentacoes', 'totalEntradas', 'totalSaidas'));
     }
@@ -41,6 +42,7 @@ class CaixaController extends Controller
         $caixa->categoria = $request->categoria;
         $caixa->observacao = $request->observacao;
         $caixa->user_id = Auth::id();
+        $caixa->empresa_id = Auth::user()->empresa_id;
         $caixa->save();
 
         return redirect()->route('caixa.index')->with('success', 'Movimentação registrada com sucesso!');
