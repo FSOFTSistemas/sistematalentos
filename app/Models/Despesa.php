@@ -26,7 +26,8 @@ class Despesa extends Model
         'numero_documento',
         'caixa_id',
         'user_id',
-        'observacao'
+        'observacao',
+        'empresa_id',
     ];
     
     /**

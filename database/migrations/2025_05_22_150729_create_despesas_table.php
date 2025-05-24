@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('valor', 10, 2);
             $table->date('data');
             $table->date('data_vencimento')->nullable();
-            $table->enum('status', ['pendente', 'paga', 'cancelada'])->default('pendente');
+            $table->enum('status', ['pendente', 'paga', 'vencido'])->default('pendente');
             $table->string('categoria');
             $table->string('fornecedor')->nullable();
             $table->string('numero_documento')->nullable();
