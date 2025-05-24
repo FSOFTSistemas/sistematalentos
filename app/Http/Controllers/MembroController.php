@@ -59,6 +59,11 @@ class MembroController extends Controller
         return view('membros._form');
     }
 
+    public function edit(Membro $membro)
+    {
+
+        return view('membros._form', compact('membro'));
+    }
     /**
      * Update the specified resource in storage.
      */

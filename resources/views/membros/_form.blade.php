@@ -36,13 +36,12 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="data_nascimento">Data de Nascimento</label>
-                            <input type="date" name="data_nascimento" class="form-control"
-                                value="{{ old('data_nascimento', $membro->data_nascimento ?? '') }}">
-                        </div>
+                    <div class="form-group col-md-4">
+                        <label for="data_nascimento">Data de Nascimento</label>
+                        <input type="date" name="data_nascimento" class="form-control"
+                            value="{{ old('data_nascimento', isset($membro->data_nascimento) ? $membro->data_nascimento->format('Y-m-d') : '') }}">
                     </div>
+
 
                     {{-- Contatos --}}
                     <h5 class="mb-3 mt-4">Contatos</h5>
@@ -66,13 +65,15 @@
                         <div class="form-group col-md-4">
                             <label for="data_batismo">Data de Batismo</label>
                             <input type="date" name="data_batismo" class="form-control"
-                                value="{{ old('data_batismo', $membro->data_batismo ?? '') }}">
+                                value="{{ old('data_batismo', isset($membro->data_batismo) ? $membro->data_batismo->format('Y-m-d') : '') }}">
                         </div>
+
                         <div class="form-group col-md-4">
                             <label for="data_admissao">Data de Admissão</label>
                             <input type="date" name="data_admissao" class="form-control"
-                                value="{{ old('data_admissao', $membro->data_admissao ?? '') }}">
+                                value="{{ old('data_admissao', isset($membro->data_admissao) ? $membro->data_admissao->format('Y-m-d') : '') }}">
                         </div>
+
                         <div class="form-group col-md-4">
                             <label for="status">Status</label>
                             <select name="status" class="form-control" required>

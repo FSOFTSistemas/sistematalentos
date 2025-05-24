@@ -39,40 +39,43 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($membros ?? [] as $membro)
+            @foreach ($membros ?? [] as $membro)
                 <tr>
                     <td>{{ $membro->id }}</td>
                     <td>{{ $membro->nome }}</td>
                     <td>{{ $membro->telefone ?? 'Não informado' }}</td>
                     <td>{{ $membro->email ?? 'Não informado' }}</td>
                     <td>
-                        @if($membro->status == 'ativo')
+                        @if ($membro->status == 'ativo')
                             <span class="badge badge-success">Ativo</span>
                         @else
                             <span class="badge badge-secondary">Inativo</span>
                         @endif
                     </td>
                     <td>
-                        <button type="button" class="btn btn-info btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#modal-view-{{ $membro->id }}">
+                        <button type="button" class="btn btn-info btn-sm rounded-pill" data-bs-toggle="modal"
+                            data-bs-target="#modal-view-{{ $membro->id }}">
                             👁️ Ver
                         </button>
-                        <button type="button" class="btn btn-warning btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#modal-edit-{{ $membro->id }}">
+                        <a href="{{ route('membros.edit', $membro->id) }}" class="btn btn-warning btn-sm rounded-pill">
                             ✏️ Editar
-                        </button>
+                        </a>
+
                         <form action="{{ route('membros.destroy', $membro->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm rounded-pill btn-delete">
+                            <button type="submit" class="btn btn-danger btn-sm rounded-pill btn-delete"
+                                onclick="return confirm('Tem certeza que deseja excluir este membro?');">
                                 🗑️ Excluir
                             </button>
                         </form>
+
                     </td>
                 </tr>
 
                 {{-- Modais --}}
-                @include('membros.modals.view', ['membro' => $membro])
-                @include('membros.modals.edit', ['membro' => $membro])
                 @include('membros.modals.delete', ['membro' => $membro])
+                @include('membros.modals.view', ['membro' => $membro])
             @endforeach
         </tbody>
     @endcomponent
@@ -151,10 +154,12 @@
             });
         @endif
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.data-table').DataTable({
                 responsive: true,
-                order: [[0, 'asc']],
+                order: [
+                    [0, 'asc']
+                ],
                 pageLength: 10,
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json'
