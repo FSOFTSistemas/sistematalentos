@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Caixa;
+use App\Models\Despesa;
 use App\Models\Dizimo;
 use App\Models\Membro;
 use Illuminate\Http\Request;
@@ -70,7 +71,8 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
+        $despesasPendentes = Despesa::where('status', 'pendente')->where('empresa_id', $empresaId)->get();
 
-        return view('home', compact('totalMembros', 'aniversariantes', 'saldoAtual', 'totalDizimosMes', 'totalDespesasMes', 'movimentacoesRecentes'));
+        return view('home', compact('totalMembros', 'aniversariantes', 'saldoAtual', 'totalDizimosMes', 'totalDespesasMes', 'movimentacoesRecentes', 'despesasPendentes'));
     }
 }
