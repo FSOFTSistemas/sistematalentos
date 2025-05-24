@@ -59,8 +59,18 @@ class HomeController extends Controller
         $totalDespesasMes = Caixa::where('tipo', 'saida')->where('empresa_id', $empresaId)->sum('valor');
 
         $totalMembros = Membro::count();
-        $aniversariantes = Membro::whereMonth('data_nascimento', $mesAtual)->where('empresa_id', Auth::user()->empresa_id)->orderByRaw('DAY(data_nascimento) ASC')->get();
+        $aniversariantes = Membro::whereMonth('data_nascimento', $mesAtual)
+            ->where('empresa_id', $empresaId)
+            ->orderByRaw('DAY(data_nascimento) ASC')
+            ->get();
 
-        return view('home', compact('totalMembros', 'aniversariantes', 'saldoAtual', 'totalDizimosMes', 'totalDespesasMes'));
+
+        $movimentacoesRecentes = Caixa::orderBy('created_at', 'desc')
+            ->where('empresa_id', $empresaId)
+            ->limit(10)
+            ->get();
+
+
+        return view('home', compact('totalMembros', 'aniversariantes', 'saldoAtual', 'totalDizimosMes', 'totalDespesasMes', 'movimentacoesRecentes'));
     }
 }
