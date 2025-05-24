@@ -45,6 +45,7 @@ class MembroController extends Controller
         $membro->data_batismo = $request->data_batismo;
         $membro->data_admissao = $request->data_admissao;
         $membro->observacoes = $request->observacoes;
+        $membro->empresa_id = Auth::user()->empresa_id;
         $membro->save();
 
         return redirect()->route('membros.index')->with('success', 'Membro cadastrado com sucesso!');
@@ -53,9 +54,9 @@ class MembroController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Membro $membro)
+    public function create()
     {
-        return view('membros.show', compact('membro'));
+        return view('membros._form');
     }
 
     /**

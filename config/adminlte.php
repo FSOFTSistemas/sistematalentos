@@ -311,24 +311,28 @@ return [
             'icon' => 'fas fa-cash-register', // ícone de caixa registradora
             'icon_color' => 'yellow',
             'url' => '/caixa',
+            'can' => 'admin',
         ],
         [
             'text' => 'Membros',
             'icon' => 'fas fa-users', // ícone de grupo de pessoas
             'icon_color' => 'cyan',
             'url' => '/membros',
+            'can' => 'admin'
         ],
         [
             'text' => 'Dízimos',
             'icon' => 'fas fa-hand-holding-usd', // ícone de doação/contribuição
             'icon_color' => 'green',
             'url' => '/dizimos',
+            'can' => 'admin',
         ],
         [
             'text' => 'Despesas',
             'icon' => 'fas fa-file-invoice-dollar', // ícone de fatura
             'icon_color' => 'blue',
             'url' => '/despesas',
+            'can' => 'admin',
         ],
         [
             'text' => 'Planos',
