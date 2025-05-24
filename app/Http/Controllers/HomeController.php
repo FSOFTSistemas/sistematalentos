@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Caixa;
+use App\Models\Dizimo;
 use App\Models\Membro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -29,6 +30,9 @@ class HomeController extends Controller
     {
         $mesAtual = Carbon::now()->month;
         $empresaId = Auth::user()->empresa_id;
+        // Estatísticas para o mês atual
+        $mesAtual = date('m');
+        $anoAtual = date('Y');
 
         // Pega o início e fim do mês atual
         $inicioMes = Carbon::now()->startOfMonth();
@@ -47,9 +51,16 @@ class HomeController extends Controller
         // Saldo = entradas - saídas
         $saldoAtual = $totalEntradas - $totalSaidas;
 
+        $totalDizimosMes = Dizimo::where('mes_referencia', (int) $mesAtual)
+            ->where('ano_referencia', (int) $anoAtual)
+            ->where('empresa_id', $empresaId)
+            ->sum('valor');
+
+        $totalDespesasMes = Caixa::where('tipo', 'saida')->where('empresa_id', $empresaId)->sum('valor');
+
         $totalMembros = Membro::count();
         $aniversariantes = Membro::whereMonth('data_nascimento', $mesAtual)->where('empresa_id', Auth::user()->empresa_id)->orderByRaw('DAY(data_nascimento) ASC')->get();
 
-        return view('home', compact('totalMembros', 'aniversariantes', 'saldoAtual'));
+        return view('home', compact('totalMembros', 'aniversariantes', 'saldoAtual', 'totalDizimosMes', 'totalDespesasMes'));
     }
 }

@@ -15,21 +15,25 @@ class DizimoController extends Controller
      */
     public function index()
     {
-        $dizimos = Dizimo::with('membro')->orderBy('data', 'desc')->get();
-        $membros = Membro::where('status', 'ativo')->orderBy('nome')->get();
-        
+        $empresa_id = Auth::user()->empresa_id;
+        $dizimos = Dizimo::with('membro')->where('empresa_id', $empresa_id)->orderBy('data', 'desc')->get();
+        $membros = Membro::where('status', 'ativo')->where('empresa_id', $empresa_id)->orderBy('nome')->get();
+
         // Estatísticas para o mês atual
         $mesAtual = date('m');
         $anoAtual = date('Y');
-        $totalDizimosMesAtual = Dizimo::where('mes_referencia', $mesAtual)
-                                    ->where('ano_referencia', $anoAtual)
-                                    ->sum('valor');
-        
-        $totalDizimistasMesAtual = Dizimo::where('mes_referencia', $mesAtual)
-                                    ->where('ano_referencia', $anoAtual)
-                                    ->distinct('membro_id')
-                                    ->count('membro_id');
-        
+
+        $totalDizimosMesAtual = Dizimo::where('mes_referencia', (int) $mesAtual)
+            ->where('ano_referencia', (int) $anoAtual)
+            ->where('empresa_id', $empresa_id)
+            ->sum('valor');
+
+        $totalDizimistasMesAtual = Dizimo::where('mes_referencia', (int) $mesAtual)
+            ->where('ano_referencia', (int) $anoAtual)
+            ->where('empresa_id', $empresa_id)
+            ->distinct('membro_id')
+            ->count('membro_id');
+
         return view('dizimos.index', compact('dizimos', 'membros', 'totalDizimosMesAtual', 'totalDizimistasMesAtual'));
     }
 
@@ -38,16 +42,19 @@ class DizimoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'membro_id' => 'required|exists:membros,id',
-            'valor' => 'required|numeric|min:0.01',
-            'data' => 'required|date',
-            'mes_referencia' => 'required|integer|min:1|max:12',
-            'ano_referencia' => 'required|integer|min:2000|max:2100',
-        ]);
-
-        DB::beginTransaction();
         try {
+            $empresa_id = Auth::user()->empresa_id;
+
+            $request->validate([
+                'membro_id' => 'required|exists:membros,id',
+                'valor' => 'required|numeric|min:0.01',
+                'data' => 'required|date',
+                'mes_referencia' => 'required|integer|min:1|max:12',
+                'ano_referencia' => 'required|integer|min:2000|max:2100',
+            ]);
+
+            DB::beginTransaction();
+
             // Criar o registro de dízimo
             $dizimo = new Dizimo();
             $dizimo->membro_id = $request->membro_id;
@@ -57,8 +64,9 @@ class DizimoController extends Controller
             $dizimo->ano_referencia = $request->ano_referencia;
             $dizimo->observacao = $request->observacao;
             $dizimo->user_id = Auth::id();
+            $dizimo->empresa_id = $empresa_id;
             $dizimo->save();
-            
+
             // Criar o registro no caixa
             $membro = Membro::find($request->membro_id);
             $caixa = new \App\Models\Caixa();
@@ -69,12 +77,13 @@ class DizimoController extends Controller
             $caixa->categoria = 'Dízimo';
             $caixa->observacao = "Dízimo referente a " . $this->getNomeMes($request->mes_referencia) . "/" . $request->ano_referencia;
             $caixa->user_id = Auth::id();
+            $caixa->empresa_id = $empresa_id;
             $caixa->save();
-            
+
             // Vincular o dízimo ao registro de caixa
             $dizimo->caixa_id = $caixa->id;
             $dizimo->save();
-            
+
             DB::commit();
             return redirect()->route('dizimos.index')->with('success', 'Dízimo registrado com sucesso!');
         } catch (\Exception $e) {
@@ -114,7 +123,7 @@ class DizimoController extends Controller
             $dizimo->ano_referencia = $request->ano_referencia;
             $dizimo->observacao = $request->observacao;
             $dizimo->save();
-            
+
             // Atualizar o registro no caixa, se existir
             if ($dizimo->caixa_id) {
                 $caixa = \App\Models\Caixa::find($dizimo->caixa_id);
@@ -127,7 +136,7 @@ class DizimoController extends Controller
                     $caixa->save();
                 }
             }
-            
+
             DB::commit();
             return redirect()->route('dizimos.index')->with('success', 'Dízimo atualizado com sucesso!');
         } catch (\Exception $e) {
@@ -150,10 +159,10 @@ class DizimoController extends Controller
                     $caixa->delete();
                 }
             }
-            
+
             // Excluir o registro de dízimo
             $dizimo->delete();
-            
+
             DB::commit();
             return redirect()->route('dizimos.index')->with('success', 'Dízimo excluído com sucesso!');
         } catch (\Exception $e) {
@@ -161,7 +170,7 @@ class DizimoController extends Controller
             return redirect()->route('dizimos.index')->with('error', 'Erro ao excluir dízimo: ' . $e->getMessage());
         }
     }
-    
+
     /**
      * Retorna o nome do mês com base no número
      */
@@ -181,7 +190,7 @@ class DizimoController extends Controller
             11 => 'Novembro',
             12 => 'Dezembro'
         ];
-        
+
         return $meses[$numero] ?? '';
     }
 }
