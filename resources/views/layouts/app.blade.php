@@ -15,6 +15,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <script src="{{ asset('js/relatorios.js') }}"></script>
 </head>
 <body>
     <div id="app">

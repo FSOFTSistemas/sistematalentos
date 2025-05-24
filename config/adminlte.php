@@ -335,6 +335,30 @@ return [
             'can' => 'admin',
         ],
         [
+            'text' => 'Relatórios',
+            'icon' => 'fas fa-receipt',
+            'icon_color' => 'white',
+            'can' => 'admin',
+            'submenu' => [
+                [
+                    'text' => 'Mensal',
+                    'url'  => '/relatorios/mensal',
+                    'icon' => 'fas fa-calendar-alt',
+                ],
+                [
+                    'text' => 'Dizimistas',
+                    'url'  => '/relatorios/dizimistas',
+                    'icon' => 'fas fa-user-friends',
+                ],
+                [
+                    'text' => 'Balanço',
+                    'url'  => '/relatorios/balanco',
+                    'icon' => 'fas fa-balance-scale',
+                ],
+            ],
+        ],
+
+        [
             'text' => 'Planos',
             'icon' => 'fas fa-users',           // ícone (FontAwesome)
             'icon_color' => 'cyan',             // cor do ícone

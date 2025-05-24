@@ -51,14 +51,26 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('despesas', DespesaController::class);
 
     // Relatórios
-    Route::get('/relatorios/mensal', [RelatorioController::class, 'mensal'])->name('relatorios.mensal');
-    Route::get('/relatorios/dizimistas', [RelatorioController::class, 'dizimistas'])->name('relatorios.dizimistas');
-    Route::get('/relatorios/balanco', [RelatorioController::class, 'balanco'])->name('relatorios.balanco');
-    
+
     // Usuários (com middleware de permissão)
     Route::middleware(['role:admin'])->group(function () {
         Route::resource('usuarios', UserController::class);
     });
+});
+
+ // Rotas para relatórios
+Route::middleware(['auth'])->prefix('relatorios')->name('relatorios.')->group(function () {
+    Route::get('/mensal', [RelatorioController::class, 'mensal'])->name('mensal');
+    Route::get('/mensal/pdf', [RelatorioController::class, 'mensalPdf'])->name('mensal.pdf');
+    Route::get('/mensal/excel', [RelatorioController::class, 'mensalExcel'])->name('mensal.excel');
+    
+    Route::get('/dizimistas', [RelatorioController::class, 'dizimistas'])->name('dizimistas');
+    Route::get('/dizimistas/pdf', [RelatorioController::class, 'dizimistasPdf'])->name('dizimistas.pdf');
+    Route::get('/dizimistas/excel', [RelatorioController::class, 'dizimistasExcel'])->name('dizimistas.excel');
+    
+    Route::get('/balanco', [RelatorioController::class, 'balanco'])->name('balanco');
+    Route::get('/balanco/pdf', [RelatorioController::class, 'balancoPdf'])->name('balanco.pdf');
+    Route::get('/balanco/excel', [RelatorioController::class, 'balancoExcel'])->name('balanco.excel');
 });
 
 // Rotas para master
