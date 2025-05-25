@@ -24,7 +24,7 @@
 
                     <dt class="col-sm-4">Referência:</dt>
                     <dd class="col-sm-8">
-                        @php
+                        {{-- @php
                             $meses = [
                                 'Janeiro',
                                 'Fevereiro',
@@ -43,7 +43,7 @@
                                 ? $meses[$dizimo->mes_referencia - 1]
                                 : '';
                         @endphp
-                        {{ $mes }}/{{ $dizimo->ano_referencia }}
+                        {{ $mes }}/{{ $dizimo->ano_referencia }} --}}
                     </dd>
 
                     <dt class="col-sm-4">Observação:</dt>

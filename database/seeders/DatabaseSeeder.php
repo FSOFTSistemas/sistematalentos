@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             UserSeed::class,
             PlanosSeeder::class,
+            FinanceiroSeeder::class,
         ]);
     }
 }

@@ -311,7 +311,7 @@ return [
             'icon' => 'fas fa-cash-register', // ícone de caixa registradora
             'icon_color' => 'yellow',
             'url' => '/caixa',
-            'can' => 'admin',
+            'can' => ['admin', 'user'],
         ],
         [
             'text' => 'Membros',

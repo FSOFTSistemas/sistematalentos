@@ -38,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    // Usuario
+    Route::resource('usuarios', UserController::class);
+
     // Caixa
     Route::resource('caixa', CaixaController::class);
 
@@ -52,10 +55,10 @@ Route::middleware(['auth'])->group(function () {
 
     // Relatórios
 
-    // Usuários (com middleware de permissão)
-    Route::middleware(['role:admin'])->group(function () {
-        Route::resource('usuarios', UserController::class);
-    });
+    // // Usuários (com middleware de permissão)
+    // Route::middleware(['role:admin'])->group(function () {
+    //     Route::resource('usuarios', UserController::class);
+    // });
 });
 
  // Rotas para relatórios
