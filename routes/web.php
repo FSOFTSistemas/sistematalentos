@@ -86,4 +86,14 @@ Route::middleware(['auth', 'master'])->group(function () {
 
 Auth::routes();
 
+// Rotas para página de vendas e checkout
+Route::get('/vendas', [App\Http\Controllers\VendasController::class, 'index'])->name('vendas.index');
+Route::post('/vendas/checkout', [App\Http\Controllers\VendasController::class, 'checkout'])->name('vendas.checkout');
+Route::post('/vendas/webhook', [App\Http\Controllers\VendasController::class, 'webhook'])->name('vendas.webhook');
+
+// Rota para a landing page
+Route::get('/landing', function () {
+    return view('landing.index');
+})->name('landing');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
