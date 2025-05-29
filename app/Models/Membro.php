@@ -31,6 +31,9 @@ class Membro extends Model
         'data_admissao',
         'observacoes',
         'empresa_id',
+        'nome_pai',
+        'nome_mae',
+        'conjuge',
     ];
     
     /**

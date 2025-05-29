@@ -36,6 +36,26 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="nome_pai">Nome do Pai</label>
+                            <input type="text" name="nome_pai" class="form-control"
+                                value="{{ old('nome_pai', $membro->nome_pai ?? '') }}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="nome_mae">Nome da Mãe</label>
+                            <input type="text" name="nome_mae" class="form-control"
+                                value="{{ old('nome_mae', $membro->nome_mae ?? '') }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="conjuge">Cônjuge</label>
+                            <input type="text" name="conjuge" class="form-control"
+                                value="{{ old('conjuge', $membro->conjuge ?? '') }}">
+                        </div>
+                    </div>
+
                     <div class="form-group col-md-4">
                         <label for="data_nascimento">Data de Nascimento</label>
                         <input type="date" name="data_nascimento" class="form-control"

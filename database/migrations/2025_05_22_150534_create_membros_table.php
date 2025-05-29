@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('telefone')->nullable();
             $table->string('cpf')->nullable()->unique();
             $table->date('data_nascimento')->nullable();
+            $table->string('nome_pai')->nullable();
+            $table->string('nome_mae')->nullable();
+            $table->string('conjuge')->nullable();
             $table->string('endereco')->nullable();
             $table->string('bairro')->nullable();
             $table->string('cidade')->nullable();
