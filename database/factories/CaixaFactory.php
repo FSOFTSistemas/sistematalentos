@@ -21,6 +21,8 @@ class CaixaFactory extends Factory
             'data' => $this->faker->dateTimeBetween('-2 months', 'now'),
             'categoria' => $this->faker->word(),
             'observacao' => $this->faker->optional()->sentence(),
+            'empresa_id' => 1, // Adicionado aqui
+            'user_id' => 1,     // Opcional: se necessário, adicione também
         ];
     }
 }

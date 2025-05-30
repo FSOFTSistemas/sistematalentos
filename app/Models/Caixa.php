@@ -64,11 +64,4 @@ class Caixa extends Model
     {
         return $query->where('tipo', 'saida');
     }
-
-    protected static function booted()
-    {
-        static::creating(function ($model) {
-            $model->empresa_id = auth()->user()->empresa_id ?? null;
-        });
-    }
 }

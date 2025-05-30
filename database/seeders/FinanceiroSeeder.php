@@ -27,6 +27,8 @@ class FinanceiroSeeder extends Seeder
             'caixa_id' => null,
         ]);
 
+        
+
         // Criar 20 lançamentos no caixa com tipo variando entre entrada e saída
         for ($i = 0; $i < 20; $i++) {
             Caixa::create([
@@ -38,6 +40,7 @@ class FinanceiroSeeder extends Seeder
                 'observacao' => 'Observação aleatória',
                 'user_id' => User::inRandomOrder()->first()?->id,
                 'empresa_id' => 1,
+                'membro_id' => null,
             ]);
         }
 

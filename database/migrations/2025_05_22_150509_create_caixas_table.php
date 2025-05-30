@@ -21,11 +21,11 @@ return new class extends Migration
             $table->text('observacao')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->unsignedBigInteger('empresa_id');
-            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->unsignedBigInteger('membro_id')->nullable();
-            $table->foreign('membro_id')->nullable()->references('id')->on('membros')->onDelete('cascade');
             $table->timestamps();
-
+            
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
+            $table->foreign('membro_id')->nullable()->references('id')->on('membros')->onDelete('cascade');
         });
     }
 
