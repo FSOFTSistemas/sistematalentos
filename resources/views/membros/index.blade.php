@@ -61,14 +61,10 @@
                             ✏️ Editar
                         </a>
 
-                        <form action="{{ route('membros.destroy', $membro->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm rounded-pill btn-delete"
-                                onclick="return confirm('Tem certeza que deseja excluir este membro?');">
-                                🗑️ Excluir
-                            </button>
-                        </form>
+                        <button type="button" class="btn btn-danger btn-sm rounded-pill" data-bs-toggle="modal"
+                            data-bs-target="#modal-delete-{{ $membro->id }}">
+                            🗑️ Excluir
+                        </button>
 
                     </td>
                 </tr>
@@ -76,6 +72,8 @@
                 {{-- Modais --}}
                 @include('membros.modals.delete', ['membro' => $membro])
                 @include('membros.modals.view', ['membro' => $membro])
+
+                
             @endforeach
         </tbody>
     @endcomponent

@@ -471,4 +471,26 @@ class RelatorioController extends Controller
 
         return $meses[$numero] ?? '';
     }
+
+    public function graficos()
+    {
+        $empresa_id = Auth::user()->empresa_id;
+
+        $entradas = Caixa::selectRaw('DATE(data) as data, SUM(valor) as total')
+            ->where('tipo', 'entrada')
+            ->where('empresa_id', $empresa_id)
+            ->groupBy('data')
+            ->orderBy('data')
+            ->get();
+
+        $saidas = Caixa::selectRaw('DATE(data) as data, SUM(valor) as total')
+            ->where('tipo', 'saida')
+            ->where('empresa_id', $empresa_id)
+            ->groupBy('data')
+            ->orderBy('data')
+            ->get();
+
+        return view('relatorios.graficos', compact('entradas', 'saidas'));
+    }
+
 }

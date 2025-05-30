@@ -74,6 +74,8 @@ Route::middleware(['auth'])->prefix('relatorios')->name('relatorios.')->group(fu
     Route::get('/balanco', [RelatorioController::class, 'balanco'])->name('balanco');
     Route::get('/balanco/pdf', [RelatorioController::class, 'balancoPdf'])->name('balanco.pdf');
     Route::get('/balanco/excel', [RelatorioController::class, 'balancoExcel'])->name('balanco.excel');
+
+    Route::get('/graficos', [RelatorioController::class, 'graficos'])->name('graficos');
 });
 
 // Rotas para master

@@ -355,6 +355,11 @@ return [
                     'url'  => '/relatorios/balanco',
                     'icon' => 'fas fa-balance-scale',
                 ],
+                [
+                    'text' => 'Gráficos',
+                    'url'  => '/relatorios/graficos',
+                    'icon' => 'fas fa-chart-bar',
+                ],
             ],
         ],
 

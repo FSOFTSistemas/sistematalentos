@@ -9,7 +9,7 @@
 
 @section('content')
     <!-- Cards Resumo -->
-    {{-- <div class="row mb-4">
+    <div class="row mb-4">
         <div class="col-md-4">
             <div class="info-box bg-success">
                 <span class="info-box-icon"><i class="fas fa-hand-holding-usd"></i></span>
@@ -41,43 +41,68 @@
                 </div>
             </div>
         </div>
-    </div> --}}
-
-   
-
-    <!-- Tabela de Presença Anual -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover align-middle text-center">
-            <thead class="table-dark">
-                <tr>
-                    <th>Dizimista</th>
-                    @for ($m = 1; $m <= 12; $m++)
-                        <th>{{ str_pad($m, 2, '0', STR_PAD_LEFT) }}/{{ now()->year }}</th>
-                    @endfor
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($dizimistas as $membro)
-                    <tr>
-                        <td class="text-start">{{ $membro->nome }}</td>
-                        @for ($m = 1; $m <= 12; $m++)
-                            @php
-                                $contribuiu = $membro->dizimos
-                                    ->where('ano_referencia', now()->year)
-                                    ->where('mes_referencia', $m)
-                                    ->isNotEmpty();
-                            @endphp
-                            <td>
-                                @if ($contribuiu)
-                                    <i class="fas fa-check text-success"></i>
-                                @endif
-                            </td>
-                        @endfor
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
     </div>
+
+    <!-- Botão Novo -->
+    <div class="row mb-3">
+        <div class="col">
+            <a class="btn float-end bluebtn rounded-pill" data-bs-toggle="modal" data-bs-target="#modal-novo-dizimo">
+                <i class="fa fa-plus"></i> Novo Dízimo
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabela -->
+    @component('components.data-table', [
+        'responsive' => [
+            ['responsivePriority' => 1, 'targets' => 0],
+            ['responsivePriority' => 2, 'targets' => 1],
+            ['responsivePriority' => 3, 'targets' => 3],
+            ['responsivePriority' => 4, 'targets' => -1],
+        ],
+        'itemsPerPage' => 10,
+        'showTotal' => false,
+        'valueColumnIndex' => 2,
+    ])
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Membro</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Mês/Ano Ref.</th>
+                <th>Registrado por</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($dizimos ?? [] as $dizimo)
+                <tr>
+                    <td>{{ $dizimo->id }}</td>
+                    <td>{{ $dizimo->membro->nome ?? 'Não informado' }}</td>
+                    <td>R$ {{ number_format($dizimo->valor, 2, ',', '.') }}</td>
+                    <td>{{ $dizimo->data->format('d/m/Y') }}</td>
+                    <td>{{ $dizimo->mes_referencia }}/{{ $dizimo->ano_referencia }}</td>
+                    <td>{{ $dizimo->user->name ?? 'Sistema' }}</td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#modal-view-{{ $dizimo->id }}">
+                            👁️
+                        </button>
+                        <button type="button" class="btn btn-warning btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#modal-edit-{{ $dizimo->id }}">
+                            ✏️
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#deleteDizimoModal{{ $dizimo->id }}">
+                            🗑️
+                        </button>
+                    </td>
+                </tr>
+
+                @include('dizimos.modals.view', ['dizimo' => $dizimo])
+                @include('dizimos.modals.edit', ['dizimo' => $dizimo])
+                @include('dizimos.modals.delete', ['dizimo' => $dizimo])
+            @endforeach
+        </tbody>
+    @endcomponent
 
     <!-- Modal Criar -->
     @include('dizimos.modals.create')

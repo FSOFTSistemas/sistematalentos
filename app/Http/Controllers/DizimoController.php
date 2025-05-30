@@ -34,7 +34,9 @@ class DizimoController extends Controller
             ->distinct('membro_id')
             ->count('membro_id');
 
-        return view('dizimos.index', compact('dizimos', 'membros', 'totalDizimosMesAtual', 'totalDizimistasMesAtual'));
+        $dizimistas = Membro::with('dizimos')->get();
+
+        return view('dizimos.index', compact('dizimos', 'membros', 'totalDizimosMesAtual', 'totalDizimistasMesAtual', 'dizimistas'));
     }
 
     /**

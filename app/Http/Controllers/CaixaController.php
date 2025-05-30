@@ -76,12 +76,12 @@ class CaixaController extends Controller
                 Dizimo::create([
                     'membro_id' => $request->membro_id,
                     'valor' => $request->valor,
-                    'data' => now(),
+                    'data' => $request->data,
                     'user_id' => Auth::id(),
                     'empresa_id' => Auth::user()->empresa_id,
                     'caixa_id' => $caixa->id,
-                    'ano_referencia' => now()->year,
-                    'mes_referencia' => now()->month,
+                    'ano_referencia' => \Carbon\Carbon::parse($request->data)->year,
+                    'mes_referencia' => \Carbon\Carbon::parse($request->data)->month,
                 ]);
             }
 
@@ -144,9 +144,9 @@ class CaixaController extends Controller
                     $dizimo->update([
                         'membro_id' => $request->membro_id,
                         'valor' => $request->valor,
-                        'data' => now(),
-                        'ano_referencia' => now()->year,
-                        'mes_referencia' => now()->month,
+                        'data' => $request->data,
+                        'ano_referencia' => \Carbon\Carbon::parse($request->data)->year,
+                        'mes_referencia' => \Carbon\Carbon::parse($request->data)->month,
                     ]);
                 }
             }
