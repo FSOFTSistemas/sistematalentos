@@ -4,6 +4,17 @@
     <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 @stop
 
+@section('adminlte_css')
+    <style>
+        body.login-page {
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+                url('{{ asset('images/login-bg.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+@stop
+
 @php
     $loginUrl = View::getSection('login_url') ?? config('adminlte.login_url', 'login');
     $registerUrl = View::getSection('register_url') ?? config('adminlte.register_url', 'register');
@@ -11,12 +22,12 @@
 
     if (config('adminlte.use_route_url', false)) {
         $loginUrl = $loginUrl ? route($loginUrl) : '';
-        $registerUrl = $registerUrl ? route($registerUrl) : '';
-        $passResetUrl = $passResetUrl ? route($passResetUrl) : '';
+        // $registerUrl = $registerUrl ? route($registerUrl) : '';
+        // $passResetUrl = $passResetUrl ? route($passResetUrl) : '';
     } else {
         $loginUrl = $loginUrl ? url($loginUrl) : '';
-        $registerUrl = $registerUrl ? url($registerUrl) : '';
-        $passResetUrl = $passResetUrl ? url($passResetUrl) : '';
+        // $registerUrl = $registerUrl ? url($registerUrl) : '';
+        // $passResetUrl = $passResetUrl ? url($passResetUrl) : '';
     }
 @endphp
 
