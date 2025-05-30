@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Caixa extends Model
 {
     use HasFactory;
-    
+
     /**
      * Os atributos que são atribuíveis em massa.
      *
@@ -24,8 +24,9 @@ class Caixa extends Model
         'observacao',
         'user_id',
         'empresa_id',
+        'membro_id',
     ];
-    
+
     /**
      * Os atributos que devem ser convertidos.
      *
@@ -35,12 +36,39 @@ class Caixa extends Model
         'data' => 'date',
         'valor' => 'decimal:2'
     ];
-    
+
     /**
      * Obtém o usuário que registrou a entrada/saída.
      */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function membro(): BelongsTo
+    {
+        return $this->belongsTo(Membro::class);
+    }
+
+    public function empresa(): BelongsTo
+    {
+        return $this->belongsTo(Empresa::class);
+    }
+
+    public function scopeEntrada($query)
+    {
+        return $query->where('tipo', 'entrada');
+    }
+
+    public function scopeSaida($query)
+    {
+        return $query->where('tipo', 'saida');
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->empresa_id = auth()->user()->empresa_id ?? null;
+        });
     }
 }

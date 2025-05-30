@@ -13,7 +13,8 @@ class MembroController extends Controller
      */
     public function index()
     {
-        $membros = Membro::orderBy('nome')->get();
+        $empresa_id = Auth::user()->empresa_id;
+        $membros = Membro::where('empresa_id', $empresa_id)->orderBy('nome')->get();
         return view('membros.index', compact('membros'));
     }
 

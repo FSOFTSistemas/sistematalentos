@@ -89,7 +89,7 @@
                             <tbody>
                                 @foreach($movimentacoesRecentes ?? [] as $movimentacao)
                                     <tr>
-                                        <td>{{ $movimentacao->data->format('d/m/Y') }}</td>
+                                        <td>{{ $movimentacao->data?->format('d/m/Y') ?? '-' }}</td>
                                         <td>{{ $movimentacao->descricao }}</td>
                                         <td>
                                             @if($movimentacao->tipo == 'entrada')
@@ -123,7 +123,7 @@
                                         {{ $aniversariante->nome }}
                                     </div>
                                     <span class="badge badge-primary">
-                                        {{ $aniversariante->data_nascimento->format('d/m') }}
+                                        {{ $aniversariante->data_nascimento?->format('d/m') ?? '-' }}
                                     </span>
                                 </div>
                             </li>
@@ -150,7 +150,7 @@
                                     </div>
                                     <div>
                                         <span class="badge badge-warning">
-                                            {{ $despesa->data_vencimento->format('d/m/Y') }}
+                                            {{ $despesa->data_vencimento?->format('d/m/Y') ?? '-' }}
                                         </span>
                                         <span class="badge badge-danger ml-1">
                                             R$ {{ number_format($despesa->valor, 2, ',', '.') }}

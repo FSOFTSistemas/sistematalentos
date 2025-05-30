@@ -13,6 +13,19 @@
                     <input type="hidden" name="tipo" value="saida">
                     <div class="modal-body">
                         <div class="form-group">
+                            <label for="categoria">Categoria</label>
+                            <select class="form-control" id="categoria" name="categoria" required>
+                                <option value="">Selecione uma categoria</option>
+                                <option value="Água/Luz">Água/Luz</option>
+                                <option value="Aluguel">Aluguel</option>
+                                <option value="Material">Material</option>
+                                <option value="Manutenção">Manutenção</option>
+                                <option value="Salário">Salário</option>
+                                <option value="Evento">Evento</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="descricao">Descrição</label>
                             <input type="text" class="form-control" id="descricao" name="descricao" required>
                         </div>
@@ -29,19 +42,7 @@
                             <label for="data">Data</label>
                             <input type="date" class="form-control" id="data" name="data" value="{{ date('Y-m-d') }}" required>
                         </div>
-                        <div class="form-group">
-                            <label for="categoria">Categoria</label>
-                            <select class="form-control" id="categoria" name="categoria" required>
-                                <option value="">Selecione uma categoria</option>
-                                <option value="Água/Luz">Água/Luz</option>
-                                <option value="Aluguel">Aluguel</option>
-                                <option value="Material">Material</option>
-                                <option value="Manutenção">Manutenção</option>
-                                <option value="Salário">Salário</option>
-                                <option value="Evento">Evento</option>
-                                <option value="Outro">Outro</option>
-                            </select>
-                        </div>
+                        
                         <div class="form-group">
                             <label for="observacao">Observação</label>
                             <textarea class="form-control" id="observacao" name="observacao" rows="3"></textarea>

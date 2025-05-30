@@ -178,4 +178,5 @@
             $('input[name="cep"]').mask('00000-000');
         });
     </script>
+    
 @endsection

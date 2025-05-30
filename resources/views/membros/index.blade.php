@@ -145,34 +145,16 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        @if (session('success'))
-            Swal.fire({
-                title: 'Sucesso!',
-                text: '{{ session('success') }}',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
-        @endif
 
         $(document).ready(function() {
-            $('.data-table').DataTable({
-                responsive: true,
-                order: [
-                    [0, 'asc']
-                ],
-                pageLength: 10,
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json'
-                }
-            });
-
+            
             if ($.fn.inputmask) {
                 $('#cpf').inputmask('999.999.999-99');
                 $('#telefone').inputmask('(99) 99999-9999');
                 $('#cep').inputmask('99999-999');
             }
 
-            $('.select2').select2();
         });
     </script>
+   
 @stop
