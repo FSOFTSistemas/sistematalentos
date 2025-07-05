@@ -53,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
     // Despesas
     Route::resource('despesas', DespesaController::class);
 
+    Route::resource('patrimonios', \App\Http\Controllers\PatrimonioController::class);
+    Route::resource('categorias', \App\Http\Controllers\CategoriaController::class);
+
     // Relatórios
 
     // // Usuários (com middleware de permissão)

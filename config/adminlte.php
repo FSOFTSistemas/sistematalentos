@@ -116,8 +116,8 @@ return [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 200,
+            'height' => 200,
         ],
     ],
 
@@ -363,6 +363,13 @@ return [
             ],
         ],
 
+        [
+            'text' => 'Patrimônios',
+            'icon' => 'fas fa-boxes', // ícone de caixas
+            'icon_color' => 'orange',
+            'url' => 'patrimonios',
+            'can' => 'admin'
+        ],
         [
             'text' => 'Planos',
             'icon' => 'fas fa-users',           // ícone (FontAwesome)
