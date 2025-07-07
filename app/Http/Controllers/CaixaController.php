@@ -32,7 +32,6 @@ class CaixaController extends Controller
     {
         try {
             $request->validate([
-                'descricao' => 'required|string|max:255',
                 'valor' => 'required|numeric|min:0.01',
                 'tipo' => 'required|in:entrada,saida',
                 'data' => 'required|date',
@@ -40,9 +39,6 @@ class CaixaController extends Controller
                 'observacao' => 'nullable|string|max:1000',
                 'membro_id' => ($request->categoriaEntrada ?? $request->categoria) === 'Dízimo' ? 'required|exists:membros,id' : 'nullable',
             ], [
-                'descricao.required' => 'O campo descrição é obrigatório.',
-                'descricao.string' => 'A descrição deve ser um texto.',
-                'descricao.max' => 'A descrição pode ter no máximo 255 caracteres.',
                 'valor.required' => 'O campo valor é obrigatório.',
                 'valor.numeric' => 'O valor deve ser numérico.',
                 'valor.min' => 'O valor deve ser no mínimo 0,01.',

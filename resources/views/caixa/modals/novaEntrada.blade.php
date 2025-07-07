@@ -36,7 +36,7 @@
                         
                         <div class="form-group">
                             <label for="descricao">Descrição</label>
-                            <input type="text" class="form-control" id="descricao" name="descricao" required>
+                            <input type="text" class="form-control" id="descricao" name="descricao">
                         </div>
                         <div class="form-group">
                             <label for="valor">Valor</label>
