@@ -24,7 +24,8 @@ class PatrimonioController extends Controller
     public function create()
     {
         $categorias = Categoria::all();
-        return view('patrimonios._form', compact('categorias'));
+        $patrimonio = null;
+        return view('patrimonios._form', compact('categorias', 'patrimonio'));
     }
 
     /**
@@ -32,6 +33,7 @@ class PatrimonioController extends Controller
      */
     public function store(Request $request)
     {
+     
         try {
             $validated = $request->validate([
                 'descricao' => 'required|string|max:255',
@@ -39,6 +41,7 @@ class PatrimonioController extends Controller
                 'categoria_id' => 'required|exists:categorias,id',
                 'data_aquisicao' => 'nullable|date',
                 'valor_aquisicao' => 'nullable|numeric',
+                'valor_atual' => 'nullable|numeric',
                 'localizacao' => 'nullable|string|max:255',
                 'responsavel' => 'nullable|string|max:255',
                 'estado_conservacao' => 'nullable|string|max:255',
@@ -55,7 +58,7 @@ class PatrimonioController extends Controller
             Patrimonio::create($validated);
             return redirect()->route('patrimonios.index')->with('success', 'Patrimônio cadastrado com sucesso!');
         } catch (ValidationException $e) {
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            return redirect()->back()->with('error', $e->getMessage())->withInput();
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erro ao cadastrar patrimônio.'.$e->getMessage())->withInput();
         }
@@ -90,6 +93,7 @@ class PatrimonioController extends Controller
                 'categoria_id' => 'required|exists:categorias,id',
                 'data_aquisicao' => 'nullable|date',
                 'valor_aquisicao' => 'nullable|numeric',
+                'valor_atual' => 'nullable|numeric',
                 'localizacao' => 'nullable|string|max:255',
                 'responsavel' => 'nullable|string|max:255',
                 'estado_conservacao' => 'nullable|string|max:255',
