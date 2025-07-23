@@ -50,9 +50,9 @@
                     <td>{{ $membro->email ?? 'Não informado' }}</td>
                     <td>
                         @if ($membro->status == 'ativo')
-                            <span class="badge badge-success">Ativo</span>
+                            <span class="badge badge-success">Comungante</span>
                         @else
-                            <span class="badge badge-secondary">Inativo</span>
+                            <span class="badge badge-secondary">Não Comungante</span>
                         @endif
                     </td>
                     <td>
