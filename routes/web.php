@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('caixa', CaixaController::class);
 
     // Membros
+    Route::get('/membros/imprimir' , [RelatorioController::class, 'imprimirMembros'])->name('membros.imprimir');
     Route::resource('membros', MembroController::class);
 
     // Dízimos
@@ -53,8 +54,10 @@ Route::middleware(['auth'])->group(function () {
     // Despesas
     Route::resource('despesas', DespesaController::class);
 
+    Route::get('/patrimonios/imprimir' , [RelatorioController::class, 'imprimirPatrimonio'])->name('patrimonio.imprimir');
     Route::resource('patrimonios', \App\Http\Controllers\PatrimonioController::class);
     Route::resource('categorias', \App\Http\Controllers\CategoriaController::class);
+
 
     // Relatórios
 
@@ -79,6 +82,8 @@ Route::middleware(['auth'])->prefix('relatorios')->name('relatorios.')->group(fu
     Route::get('/balanco/excel', [RelatorioController::class, 'balancoExcel'])->name('balanco.excel');
 
     Route::get('/graficos', [RelatorioController::class, 'graficos'])->name('graficos');
+
+    
 });
 
 // Rotas para master

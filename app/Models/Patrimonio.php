@@ -16,6 +16,7 @@ class Patrimonio extends Model
         'categoria_id',
         'data_aquisicao',
         'valor_aquisicao',
+        'valor_atual',
         'localizacao',
         'responsavel',
         'estado_conservacao',

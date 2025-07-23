@@ -35,7 +35,7 @@ class CaixaController extends Controller
                 'valor' => 'required|numeric|min:0.01',
                 'tipo' => 'required|in:entrada,saida',
                 'data' => 'required|date',
-                'categoriaEntrada' => 'required|string|max:100',
+                'categoriaEntrada' => $request->tipo === 'entrada' ? 'required|string|max:100' : 'nullable|string|max:100',
                 'observacao' => 'nullable|string|max:1000',
                 'membro_id' => ($request->categoriaEntrada ?? $request->categoria) === 'Dízimo' ? 'required|exists:membros,id' : 'nullable',
             ], [

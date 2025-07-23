@@ -7,6 +7,7 @@ use App\Models\Caixa;
 use App\Models\Membro;
 use App\Models\Dizimo;
 use App\Models\Despesa;
+use App\Models\Patrimonio;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -491,6 +492,20 @@ class RelatorioController extends Controller
             ->get();
 
         return view('relatorios.graficos', compact('entradas', 'saidas'));
+    }
+
+    public function imprimirMembros()
+    {
+        $membros = Membro::where('empresa_id', Auth::user()->empresa_id)->get();
+        $pdf = Pdf::loadView('relatorios.pdf.membros', compact('membros'));
+        return $pdf->stream('relatorio_membros.pdf');
+    }
+
+    public function imprimirPatrimonio()
+    {
+        $patrimonios = Patrimonio::where('empresa_id', Auth::user()->empresa_id)->get();
+        $pdf = Pdf::loadView('relatorios.pdf.patrimonios', compact('patrimonios'));
+        return $pdf->stream('relatorio_patrimonio.pdf');
     }
 
 }

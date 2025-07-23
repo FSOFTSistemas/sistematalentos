@@ -9,9 +9,12 @@
 
 @section('content')
     <div class="row mb-3">
-        <div class="col">
-            <a class="btn float-end rounded-pill bluebtn" href="{{ route('membros.create') }}">
+        <div class="col d-flex justify-content-end gap-2">
+            <a class="btn rounded-pill bluebtn" href="{{ route('membros.create') }}">
                 <i class="fa fa-plus"></i> Novo Membro
+            </a>
+            <a class="btn rounded-pill bluebtn" href="{{ route('membros.imprimir') }}" title="Imprimir" target="_blank">
+                <i class="fa fa-print"></i>
             </a>
         </div>
     </div>
@@ -24,7 +27,7 @@
             ['responsivePriority' => 3, 'targets' => 2],
             ['responsivePriority' => 4, 'targets' => -1],
         ],
-        'itemsPerPage' => 10,
+        'itemsPerPage' => 25,
         'showTotal' => false,
         'valueColumnIndex' => 1,
     ])
@@ -72,8 +75,6 @@
                 {{-- Modais --}}
                 @include('membros.modals.delete', ['membro' => $membro])
                 @include('membros.modals.view', ['membro' => $membro])
-
-                
             @endforeach
         </tbody>
     @endcomponent
@@ -143,9 +144,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-
         $(document).ready(function() {
-            
+
             if ($.fn.inputmask) {
                 $('#cpf').inputmask('999.999.999-99');
                 $('#telefone').inputmask('(99) 99999-9999');
@@ -154,5 +154,5 @@
 
         });
     </script>
-   
+
 @stop

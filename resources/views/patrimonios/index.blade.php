@@ -10,10 +10,13 @@
 @stop
 
 @section('content')
-    <div class="row mb-3">
-        <div class="col">
+<div class="row mb-3">
+    <div class="col d-flex justify-content-end gap-2">
             <a class="btn float-end rounded-pill bluebtn" href="{{ route('patrimonios.create') }}">
                 <i class="fa fa-plus"></i> Novo Patrimônio
+            </a>
+            <a class="btn rounded-pill bluebtn" href="{{ route('patrimonio.imprimir') }}" title="Imprimir" target="_blank">
+                <i class="fa fa-print"></i>
             </a>
         </div>
     </div>
@@ -36,6 +39,8 @@
                 <th>Nº Patrimônio</th>
                 <th>Categoria</th>
                 <th>Localização</th>
+                <th>Valor Aquisição</th>
+                <th>Valor Atual</th>
                 <th>Status</th>
                 <th>Ações</th>
             </tr>
@@ -48,6 +53,8 @@
                     <td>{{ $patrimonio->numero_patrimonio }}</td>
                     <td>{{ $patrimonio->categoria->nome ?? '—' }}</td>
                     <td>{{ $patrimonio->localizacao ?? '—' }}</td>
+                    <td>{{ $patrimonio->valor_aquisicao ?? '—' }}</td>
+                    <td>{{ $patrimonio->valor_atual ?? '—' }}</td>
                     <td>
                         @if ($patrimonio->ativo)
                             <span class="badge badge-success">Ativo</span>
